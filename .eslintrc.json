@@ -46,6 +46,7 @@
         "tsx": "never"
       }
     ],
+    "no-use-before-define": "off",
     "prettier/prettier": "error"
   },
   "settings": {
