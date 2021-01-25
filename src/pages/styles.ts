@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Button } from '@material-ui/core';
 
 export const Header = styled.div`
   background: #000000;
@@ -16,16 +17,32 @@ export const Header = styled.div`
 
 export const Form = styled.div`
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  align-items: flex-end;
   justify-content: space-around;
+  align-content: center;
+
   background: #4f9419;
+  padding: 60px 20px;
 
   div {
-    margin: 60px 20px;
     flex-grow: 1;
+    margin: 0 30px;
   }
 
   input {
     width: 100%;
+  }
+
+  Button {
+    width: 100%;
+    background: #006c18;
+    color: #fff;
+    border-radius: 7px;
+
+    text-transform: none;
+    font-size: 18px;
+    line-height: 21px;
+    font-weight: 400;
   }
 `;
