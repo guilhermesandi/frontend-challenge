@@ -17,10 +17,15 @@ export const Header = styled.div`
 export const Form = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   background: #4f9419;
 
   div {
     margin: 60px 20px;
+    flex-grow: 1;
+  }
+
+  input {
+    width: 100%;
   }
 `;

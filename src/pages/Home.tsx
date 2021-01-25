@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button } from '@material-ui/core';
+import { Button, Box } from '@material-ui/core';
 import { Header, Form } from './styles';
 
 import Logo from '../assets/logo.png';
@@ -33,6 +33,13 @@ const Home: React.FC = () => {
           <Button>Adicionar</Button>
         </div>
       </Form>
+      <Box>
+        <div>
+          <p>Bandeira</p>
+          <p>Brasil</p>
+        </div>
+        <div>Icons</div>
+      </Box>
     </>
   );
 };
