@@ -1,5 +1,12 @@
+import {
+  createStyles,
+  fade,
+  InputBase,
+  InputLabel,
+  Theme,
+  withStyles,
+} from '@material-ui/core';
 import styled from 'styled-components';
-import { Button } from '@material-ui/core';
 
 export const Header = styled.div`
   background: #000000;
@@ -15,34 +22,68 @@ export const Header = styled.div`
   }
 `;
 
-export const Form = styled.div`
+export const Form = styled.form`
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-around;
-  align-content: center;
 
   background: #4f9419;
   padding: 60px 20px;
 
-  div {
-    flex-grow: 1;
-    margin: 0 30px;
-  }
-
-  input {
-    width: 100%;
-  }
-
   Button {
-    width: 100%;
     background: #006c18;
-    color: #fff;
     border-radius: 7px;
 
-    text-transform: none;
+    color: #fff;
     font-size: 18px;
-    line-height: 21px;
     font-weight: 400;
+    text-transform: none;
+    height: 48px;
   }
 `;
+
+export const Input = styled(InputLabel)`
+  color: #fff;
+  line-height: 19px;
+
+  font-size: 16px;
+  font-weight: 400;
+`;
+
+export const BootstrapInput = withStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      'label + &': {
+        marginTop: theme.spacing(3),
+      },
+    },
+    input: {
+      borderRadius: 7,
+      position: 'relative',
+      backgroundColor: theme.palette.common.white,
+      fontSize: 16,
+      width: 'auto',
+      height: 28,
+      padding: '10px 12px',
+      transition: theme.transitions.create(['border-color', 'box-shadow']),
+      // Use the system font instead of the default Roboto font.
+      fontFamily: [
+        '-apple-system',
+        'BlinkMacSystemFont',
+        '"Segoe UI"',
+        'Roboto',
+        '"Helvetica Neue"',
+        'Arial',
+        'sans-serif',
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+      ].join(','),
+      '&:focus': {
+        boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
+        borderColor: theme.palette.primary.main,
+      },
+    },
+  }),
+)(InputBase);

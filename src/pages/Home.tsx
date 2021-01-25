@@ -1,11 +1,16 @@
 import React from 'react';
 
-import { Button, Box } from '@material-ui/core';
-import { Header, Form } from './styles';
+import { Button, Box, FormControl, NativeSelect } from '@material-ui/core';
+import { Header, Form, BootstrapInput, Input } from './styles';
 
 import Logo from '../assets/logo.png';
 
 const Home: React.FC = () => {
+  const [country, setCountry] = React.useState('');
+  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setCountry(event.target.value as string);
+  };
+
   return (
     <>
       <Header>
@@ -13,33 +18,51 @@ const Home: React.FC = () => {
           <img src={Logo} alt="Lugares que quero conhecer" />
         </header>
       </Header>
+
       <Form>
-        <div>
-          <h1>País</h1>
-          <input placeholder="Selecione..." />
-        </div>
+        <FormControl>
+          <Input shrink htmlFor="bootstrap-input">
+            País
+          </Input>
+          <NativeSelect
+            id="demo-customized-select-native"
+            value={country}
+            onChange={handleChange}
+            input={<BootstrapInput />}
+          >
+            <option aria-label="None" value="" />
+            <option value={10}>Ten</option>
+            <option value={20}>Twenty</option>
+            <option value={30}>Thirty</option>
+          </NativeSelect>
+        </FormControl>
 
-        <div>
-          <h1>Local</h1>
-          <input placeholder="Digite o local que deseja conhecer" />
-        </div>
+        <FormControl>
+          <Input shrink htmlFor="bootstrap-input">
+            Local
+          </Input>
+          <BootstrapInput
+            placeholder="Digite o local que deseja conhecer"
+            id="bootstrap-input"
+          />
+        </FormControl>
 
-        <div>
-          <h1>Meta</h1>
-          <input placeholder="mês/ano" />
-        </div>
+        <FormControl>
+          <Input shrink htmlFor="bootstrap-input">
+            Meta
+          </Input>
+          <BootstrapInput placeholder="mês/ano" id="bootstrap-input" />
+        </FormControl>
 
-        <div>
-          <Button>Adicionar</Button>
-        </div>
+        <Button>Adicionar</Button>
       </Form>
-      <Box>
+      {/* <Box>
         <div>
           <p>Bandeira</p>
           <p>Brasil</p>
         </div>
         <div>Icons</div>
-      </Box>
+      </Box> */}
     </>
   );
 };
