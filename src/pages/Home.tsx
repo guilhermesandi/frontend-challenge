@@ -1,17 +1,70 @@
-import React from 'react';
-
+import React, { useState, useEffect, FormEvent } from 'react';
 import { Button, Box, NativeSelect, Grid, Typography } from '@material-ui/core';
-import { spacing } from '@material-ui/system';
-import { Header, Form, BootstrapInput, Input, FormDiv } from './styles';
-import brasil from '../assets/brasil.svg';
+import api from '../services/api';
 
 import Logo from '../assets/logo.png';
+import brasil from '../assets/brasil.svg';
+
+import { Header, Form, BootstrapInput, Input, FormDiv } from './styles';
+
+interface Country {
+  name: string;
+  flag: string;
+  translations: {
+    br: string;
+  };
+  alpha3Code: string;
+}
 
 const Home: React.FC = () => {
-  const [country, setCountry] = React.useState('');
+  const [country, setCountry] = useState('');
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setCountry(event.target.value as string);
   };
+
+  const [count, setCount] = useState<Country[]>([]);
+
+  // useEffect(() => {
+  //   async function loadCountries(): Promise<void> {
+  //     const response = await api.get<Country>('');
+
+  //     const allApi = response.data;
+  //     console.log(allApi);
+
+  //     setCount([...count, allApi]);
+  //   }
+
+  //   loadCountries();
+  // });
+
+  // console.log(count);
+
+  async function handleLoadCountries(): Promise<void> {
+    const response = await api.get<Country>('');
+
+    const allApi = response.data;
+
+    setCount([...count, allApi]);
+  }
+
+  window.addEventListener('load', handleLoadCountries);
+
+  console.log(count);
+
+  const [newCountry, setNewCountry] = useState('');
+  const [countries, setCountries] = useState<Country[]>([]);
+
+  async function handleAddCountry(
+    event: FormEvent<HTMLFormElement>,
+  ): Promise<void> {
+    event.preventDefault();
+
+    const response = await api.get<Country>(`name/${newCountry}`);
+
+    const countryy = response.data;
+
+    setCountries([...countries, countryy]);
+  }
 
   return (
     <>
@@ -21,7 +74,7 @@ const Home: React.FC = () => {
         </header>
       </Header>
 
-      <Form>
+      <Form onSubmit={handleAddCountry}>
         <FormDiv>
           <Input shrink htmlFor="select-country">
             País
@@ -33,6 +86,11 @@ const Home: React.FC = () => {
             input={<BootstrapInput />}
           >
             <option aria-label="None" value="" />
+            {count.map(countrye => (
+              <option key={countrye.alpha3Code} value={countrye.name}>
+                {countrye.name}
+              </option>
+            ))}
             <option value={10}>Ten</option>
             <option value={20}>Twenty</option>
             <option value={30}>Thirty</option>
@@ -44,6 +102,8 @@ const Home: React.FC = () => {
             Local
           </Input>
           <BootstrapInput
+            value={newCountry}
+            onChange={e => setNewCountry(e.target.value)}
             placeholder="Digite o local que deseja conhecer"
             id="input-local"
           />
@@ -56,7 +116,7 @@ const Home: React.FC = () => {
           <BootstrapInput placeholder="mês/ano" id="input-date" />
         </FormDiv>
 
-        <Button>Adicionar</Button>
+        <Button type="submit">Adicionar</Button>
       </Form>
 
       <Box>
