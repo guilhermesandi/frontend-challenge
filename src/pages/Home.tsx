@@ -1,7 +1,9 @@
 import React from 'react';
 
-import { Button, Box, FormControl, NativeSelect } from '@material-ui/core';
-import { Header, Form, BootstrapInput, Input } from './styles';
+import { Button, Box, NativeSelect, Grid, Typography } from '@material-ui/core';
+import { spacing } from '@material-ui/system';
+import { Header, Form, BootstrapInput, Input, FormDiv } from './styles';
+import brasil from '../assets/brasil.svg';
 
 import Logo from '../assets/logo.png';
 
@@ -20,12 +22,12 @@ const Home: React.FC = () => {
       </Header>
 
       <Form>
-        <FormControl>
-          <Input shrink htmlFor="bootstrap-input">
+        <FormDiv>
+          <Input shrink htmlFor="select-country">
             País
           </Input>
           <NativeSelect
-            id="demo-customized-select-native"
+            id="select-country"
             value={country}
             onChange={handleChange}
             input={<BootstrapInput />}
@@ -35,34 +37,56 @@ const Home: React.FC = () => {
             <option value={20}>Twenty</option>
             <option value={30}>Thirty</option>
           </NativeSelect>
-        </FormControl>
+        </FormDiv>
 
-        <FormControl>
-          <Input shrink htmlFor="bootstrap-input">
+        <FormDiv>
+          <Input shrink htmlFor="input-local">
             Local
           </Input>
           <BootstrapInput
             placeholder="Digite o local que deseja conhecer"
-            id="bootstrap-input"
+            id="input-local"
           />
-        </FormControl>
+        </FormDiv>
 
-        <FormControl>
-          <Input shrink htmlFor="bootstrap-input">
+        <FormDiv>
+          <Input shrink htmlFor="input-date">
             Meta
           </Input>
-          <BootstrapInput placeholder="mês/ano" id="bootstrap-input" />
-        </FormControl>
+          <BootstrapInput placeholder="mês/ano" id="input-date" />
+        </FormDiv>
 
         <Button>Adicionar</Button>
       </Form>
-      {/* <Box>
-        <div>
-          <p>Bandeira</p>
-          <p>Brasil</p>
-        </div>
-        <div>Icons</div>
-      </Box> */}
+
+      <Box>
+        <Grid container>
+          <Grid item lg={2} md={4} sm={6} xs={12}>
+            <Box boxShadow={4} borderRadius={10} m={2} p={2}>
+              <Box borderBottom={1}>
+                <img src={brasil} alt="" />
+                <Typography>Brasil</Typography>
+              </Box>
+              <Box>
+                <Typography>Local: Balneario Camboriu </Typography>
+                <Typography>Meta: 04/2022</Typography>
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item lg={2} md={4} sm={6} xs={12}>
+            <Box boxShadow={4} borderRadius={10} m={2} p={2}>
+              <Box borderBottom={1}>
+                <img src={brasil} alt="" />
+                <Typography>Brasil</Typography>
+              </Box>
+              <Box>
+                <Typography>Local: Balneario Camboriu </Typography>
+                <Typography>Meta: 04/2022</Typography>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
     </>
   );
 };

@@ -1,6 +1,7 @@
 import {
   createStyles,
   fade,
+  FormControl,
   InputBase,
   InputLabel,
   Theme,
@@ -26,10 +27,10 @@ export const Form = styled.form`
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
-  justify-content: space-around;
+  justify-content: space-between;
 
   background: #4f9419;
-  padding: 60px 20px;
+  padding: 70px;
 
   Button {
     background: #006c18;
@@ -40,6 +41,8 @@ export const Form = styled.form`
     font-weight: 400;
     text-transform: none;
     height: 48px;
+    width: 200px;
+    margin-top: 24px;
   }
 `;
 
@@ -51,11 +54,27 @@ export const Input = styled(InputLabel)`
   font-weight: 400;
 `;
 
+export const FormDiv = styled(FormControl)`
+  /* flex: 1; */
+  #select-country {
+    width: 300px;
+  }
+
+  #input-local {
+    width: 450px;
+  }
+
+  #input-date {
+    width: 240px;
+  }
+`;
+
 export const BootstrapInput = withStyles((theme: Theme) =>
   createStyles({
     root: {
       'label + &': {
         marginTop: theme.spacing(3),
+        marginRight: 30,
       },
     },
     input: {
@@ -67,23 +86,11 @@ export const BootstrapInput = withStyles((theme: Theme) =>
       height: 28,
       padding: '10px 12px',
       transition: theme.transitions.create(['border-color', 'box-shadow']),
-      // Use the system font instead of the default Roboto font.
-      fontFamily: [
-        '-apple-system',
-        'BlinkMacSystemFont',
-        '"Segoe UI"',
-        'Roboto',
-        '"Helvetica Neue"',
-        'Arial',
-        'sans-serif',
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-      ].join(','),
       '&:focus': {
         boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
         borderColor: theme.palette.primary.main,
       },
+      flex: 1,
     },
   }),
 )(InputBase);
