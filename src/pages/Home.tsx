@@ -1,5 +1,6 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import { Button, Box, NativeSelect, Grid, Typography } from '@material-ui/core';
+
 import api from '../services/api';
 
 import Logo from '../assets/logo.png';
@@ -17,41 +18,8 @@ interface Country {
 }
 
 const Home: React.FC = () => {
-  const [country, setCountry] = useState('');
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setCountry(event.target.value as string);
-  };
-
-  const [count, setCount] = useState<Country[]>([]);
-
-  // useEffect(() => {
-  //   async function loadCountries(): Promise<void> {
-  //     const response = await api.get<Country>('');
-
-  //     const allApi = response.data;
-  //     console.log(allApi);
-
-  //     setCount([...count, allApi]);
-  //   }
-
-  //   loadCountries();
-  // });
-
-  // console.log(count);
-
-  async function handleLoadCountries(): Promise<void> {
-    const response = await api.get<Country>('');
-
-    const allApi = response.data;
-
-    setCount([...count, allApi]);
-  }
-
-  window.addEventListener('load', handleLoadCountries);
-
-  console.log(count);
-
   const [newCountry, setNewCountry] = useState('');
+  const [places, setPlaces] = useState('');
   const [countries, setCountries] = useState<Country[]>([]);
 
   async function handleAddCountry(
@@ -59,12 +27,20 @@ const Home: React.FC = () => {
   ): Promise<void> {
     event.preventDefault();
 
+    console.log(newCountry);
+
     const response = await api.get<Country>(`name/${newCountry}`);
 
-    const countryy = response.data;
+    const country = response.data;
 
-    setCountries([...countries, countryy]);
+    setCountries([...countries, country]);
   }
+
+  useEffect(() => {
+    api.get('').then(response => {
+      setCountries(response.data);
+    });
+  }, []);
 
   return (
     <>
@@ -79,21 +55,13 @@ const Home: React.FC = () => {
           <Input shrink htmlFor="select-country">
             País
           </Input>
-          <NativeSelect
-            id="select-country"
-            value={country}
-            onChange={handleChange}
-            input={<BootstrapInput />}
-          >
+          <NativeSelect id="select-country" input={<BootstrapInput />}>
             <option aria-label="None" value="" />
-            {count.map(countrye => (
-              <option key={countrye.alpha3Code} value={countrye.name}>
-                {countrye.name}
+            {countries.map(country => (
+              <option key={country.alpha3Code} value={country.name}>
+                {country.translations.br}
               </option>
             ))}
-            <option value={10}>Ten</option>
-            <option value={20}>Twenty</option>
-            <option value={30}>Thirty</option>
           </NativeSelect>
         </FormDiv>
 
