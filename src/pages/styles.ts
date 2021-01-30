@@ -1,10 +1,13 @@
 import {
+  Box,
   createStyles,
   fade,
   FormControl,
+  Grid,
   InputBase,
   InputLabel,
   Theme,
+  Typography,
   withStyles,
 } from '@material-ui/core';
 import styled from 'styled-components';
@@ -94,3 +97,41 @@ export const BootstrapInput = withStyles((theme: Theme) =>
     },
   }),
 )(InputBase);
+
+export const GridData = styled(Grid)`
+  img {
+    width: 54px;
+  }
+
+  button {
+    position: relative;
+    right: 16px;
+    top: 19px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+  }
+`;
+
+export const CountryFormat = styled(Box)`
+  padding: 8px 5px;
+
+  p {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    text-transform: uppercase;
+    color: #4f9419;
+
+    padding-top: 10px;
+  }
+`;
+
+export const LocationFormat = styled(Box)`
+  padding: 30px 15px;
+
+  p:first-child {
+    padding-bottom: 12px;
+    font-weight: 400;
+  }
+`;

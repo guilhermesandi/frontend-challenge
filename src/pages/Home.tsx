@@ -1,11 +1,21 @@
 import React, { useState, useEffect, FormEvent } from 'react';
-import { Button, Box, NativeSelect, Grid, Typography } from '@material-ui/core';
+import { Button, Box, NativeSelect, Grid } from '@material-ui/core';
+import { MdEdit, MdClose } from 'react-icons/md';
 
 import api from '../services/api';
 
 import Logo from '../assets/logo.png';
 
-import { Header, Form, BootstrapInput, Label, FormDiv } from './styles';
+import {
+  Header,
+  Form,
+  BootstrapInput,
+  Label,
+  FormDiv,
+  GridData,
+  CountryFormat,
+  LocationFormat,
+} from './styles';
 
 interface Country {
   name: string;
@@ -129,50 +139,31 @@ const Home: React.FC = () => {
       <Box>
         <Grid container>
           {locations.map((location, index) => (
-            <Grid key={index} item lg={2} md={4} sm={6} xs={12}>
-              <Box boxShadow={4} borderRadius={10} m={2} p={2}>
-                <Box borderBottom={1}>
-                  <img src={location.flag} alt="" />
-                  <Typography>{location.countryBR}</Typography>
-                </Box>
-                <Box>
-                  <Typography>
-                    Local:
+            <GridData key={index} item lg={2} md={4} sm={6} xs={12}>
+              <Box boxShadow={4} borderRadius={10} m={2} p={1}>
+                <CountryFormat borderBottom={1}>
+                  <img src={location.flag} alt={location.countryBR} />
+                  <p>{location.countryBR}</p>
+                  <button type="button">
+                    <MdEdit size={24} />
+                  </button>
+                  <button type="button">
+                    <MdClose size={24} />
+                  </button>
+                </CountryFormat>
+                <LocationFormat>
+                  <p>
+                    <span>Local: </span>
                     {location.place}
-                  </Typography>
-                  <Typography>
-                    Meta:
+                  </p>
+                  <p>
+                    <span>Meta: </span>
                     {location.goal}
-                  </Typography>
-                </Box>
+                  </p>
+                </LocationFormat>
               </Box>
-            </Grid>
+            </GridData>
           ))}
-
-          {/* <Grid item lg={2} md={4} sm={6} xs={12}>
-            <Box boxShadow={4} borderRadius={10} m={2} p={2}>
-              <Box borderBottom={1}>
-                <img src={brasil} alt="" />
-                <Typography>Brasil</Typography>
-              </Box>
-              <Box>
-                <Typography>Local: Balneario Camboriu </Typography>
-                <Typography>Meta: 04/2022</Typography>
-              </Box>
-            </Box>
-          </Grid>
-          <Grid item lg={2} md={4} sm={6} xs={12}>
-            <Box boxShadow={4} borderRadius={10} m={2} p={2}>
-              <Box borderBottom={1}>
-                <img src={brasil} alt="" />
-                <Typography>Brasil</Typography>
-              </Box>
-              <Box>
-                <Typography>Local: Balneario Camboriu </Typography>
-                <Typography>Meta: 04/2022</Typography>
-              </Box>
-            </Box>
-          </Grid> */}
         </Grid>
       </Box>
     </>
