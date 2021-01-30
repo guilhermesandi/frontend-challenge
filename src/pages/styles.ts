@@ -46,7 +46,7 @@ export const Form = styled.form`
   }
 `;
 
-export const Input = styled(InputLabel)`
+export const Label = styled(InputLabel)`
   color: #fff;
   line-height: 19px;
 

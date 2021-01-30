@@ -4,9 +4,8 @@ import { Button, Box, NativeSelect, Grid, Typography } from '@material-ui/core';
 import api from '../services/api';
 
 import Logo from '../assets/logo.png';
-import brasil from '../assets/brasil.svg';
 
-import { Header, Form, BootstrapInput, Input, FormDiv } from './styles';
+import { Header, Form, BootstrapInput, Label, FormDiv } from './styles';
 
 interface Country {
   name: string;
@@ -17,27 +16,58 @@ interface Country {
   alpha3Code: string;
 }
 
-const Home: React.FC = () => {
-  const [newCountry, setNewCountry] = useState('');
-  const [places, setPlaces] = useState('');
-  const [countries, setCountries] = useState<Country[]>([]);
+interface Location {
+  country: string;
+  place: string;
+  goal: string;
+  countryBR: string;
+  flag: string;
+}
 
-  async function handleAddCountry(
+const Home: React.FC = () => {
+  const [newPlace, setNewPlace] = useState('');
+  const [newGoal, setNewGoal] = useState('');
+  const [newCountry, setNewCountry] = useState('');
+  const [countries, setCountries] = useState<Country[]>([]);
+  const [locations, setLocations] = useState<Location[]>(() => {
+    const storagedLocations = localStorage.getItem(
+      '@LugaresConhecer:locations',
+    );
+
+    if (storagedLocations) {
+      return JSON.parse(storagedLocations);
+    }
+
+    return [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem(
+      '@LugaresConhecer:locations',
+      JSON.stringify(locations),
+    );
+  }, [locations]);
+
+  async function handleAddForm(
     event: FormEvent<HTMLFormElement>,
   ): Promise<void> {
     event.preventDefault();
 
-    console.log(newCountry);
+    const [apiResponse] = await (await api.get(`/name/${newCountry}`)).data;
 
-    const response = await api.get<Country>(`name/${newCountry}`);
+    const response = {
+      country: newCountry,
+      place: newPlace,
+      goal: newGoal,
+      countryBR: apiResponse.translations.br,
+      flag: apiResponse.flag,
+    };
 
-    const country = response.data;
-
-    setCountries([...countries, country]);
+    setLocations([...locations, response]);
   }
 
   useEffect(() => {
-    api.get('').then(response => {
+    api.get('/all').then(response => {
       setCountries(response.data);
     });
   }, []);
@@ -50,12 +80,16 @@ const Home: React.FC = () => {
         </header>
       </Header>
 
-      <Form onSubmit={handleAddCountry}>
+      <Form onSubmit={handleAddForm}>
         <FormDiv>
-          <Input shrink htmlFor="select-country">
+          <Label shrink htmlFor="select-country">
             País
-          </Input>
-          <NativeSelect id="select-country" input={<BootstrapInput />}>
+          </Label>
+          <NativeSelect
+            onChange={e => setNewCountry(e.target.value)}
+            id="select-country"
+            input={<BootstrapInput />}
+          >
             <option aria-label="None" value="" />
             {countries.map(country => (
               <option key={country.alpha3Code} value={country.name}>
@@ -66,22 +100,27 @@ const Home: React.FC = () => {
         </FormDiv>
 
         <FormDiv>
-          <Input shrink htmlFor="input-local">
+          <Label shrink htmlFor="input-local">
             Local
-          </Input>
+          </Label>
           <BootstrapInput
-            value={newCountry}
-            onChange={e => setNewCountry(e.target.value)}
+            value={newPlace}
+            onChange={e => setNewPlace(e.target.value)}
             placeholder="Digite o local que deseja conhecer"
             id="input-local"
           />
         </FormDiv>
 
         <FormDiv>
-          <Input shrink htmlFor="input-date">
+          <Label shrink htmlFor="input-date">
             Meta
-          </Input>
-          <BootstrapInput placeholder="mês/ano" id="input-date" />
+          </Label>
+          <BootstrapInput
+            value={newGoal}
+            onChange={e => setNewGoal(e.target.value)}
+            placeholder="mês/ano"
+            id="input-date"
+          />
         </FormDiv>
 
         <Button type="submit">Adicionar</Button>
@@ -89,7 +128,28 @@ const Home: React.FC = () => {
 
       <Box>
         <Grid container>
-          <Grid item lg={2} md={4} sm={6} xs={12}>
+          {locations.map((location, index) => (
+            <Grid key={index} item lg={2} md={4} sm={6} xs={12}>
+              <Box boxShadow={4} borderRadius={10} m={2} p={2}>
+                <Box borderBottom={1}>
+                  <img src={location.flag} alt="" />
+                  <Typography>{location.countryBR}</Typography>
+                </Box>
+                <Box>
+                  <Typography>
+                    Local:
+                    {location.place}
+                  </Typography>
+                  <Typography>
+                    Meta:
+                    {location.goal}
+                  </Typography>
+                </Box>
+              </Box>
+            </Grid>
+          ))}
+
+          {/* <Grid item lg={2} md={4} sm={6} xs={12}>
             <Box boxShadow={4} borderRadius={10} m={2} p={2}>
               <Box borderBottom={1}>
                 <img src={brasil} alt="" />
@@ -112,7 +172,7 @@ const Home: React.FC = () => {
                 <Typography>Meta: 04/2022</Typography>
               </Box>
             </Box>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Box>
     </>
