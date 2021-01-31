@@ -1,5 +1,16 @@
 import React, { useState, useEffect, FormEvent } from 'react';
-import { Button, Box, NativeSelect, Grid } from '@material-ui/core';
+import {
+  Button,
+  Box,
+  NativeSelect,
+  Grid,
+  Card,
+  CardHeader,
+  Avatar,
+  IconButton,
+  CardContent,
+  Typography,
+} from '@material-ui/core';
 import { MdEdit, MdClose } from 'react-icons/md';
 
 import api from '../services/api';
@@ -164,6 +175,26 @@ const Home: React.FC = () => {
               </Box>
             </GridData>
           ))}
+          <Card>
+            <CardHeader
+              avatar={<Avatar aria-label="recipe">R</Avatar>}
+              action={
+                // eslint-disable-next-line react/jsx-wrap-multilines
+                <IconButton aria-label="settings">
+                  <MdEdit size={24} />
+                </IconButton>
+              }
+              title="Shrimp and Chorizo Paella"
+              subheader="September 14, 2016"
+            />
+            <CardContent>
+              <Typography variant="body2" color="textSecondary" component="p">
+                This impressive paella is a perfect party dish and a fun meal to
+                cook together with your guests. Add 1 cup of frozen peas along
+                with the mussels, if you like.
+              </Typography>
+            </CardContent>
+          </Card>
         </Grid>
       </Box>
     </>
