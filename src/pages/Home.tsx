@@ -1,16 +1,6 @@
 import React, { useState, useEffect, FormEvent } from 'react';
-import {
-  Button,
-  Box,
-  NativeSelect,
-  Grid,
-  Card,
-  CardHeader,
-  Avatar,
-  IconButton,
-  CardContent,
-  Typography,
-} from '@material-ui/core';
+import { Button, Box, NativeSelect, Grid, IconButton } from '@material-ui/core';
+import InputMask from 'react-input-mask';
 import { MdEdit, MdClose } from 'react-icons/md';
 
 import api from '../services/api';
@@ -93,6 +83,11 @@ const Home: React.FC = () => {
     });
   }, []);
 
+  const removeGoal = (id: string) => {
+    console.log('entrou');
+    localStorage.removeItem(id);
+  };
+
   return (
     <>
       <Header>
@@ -136,12 +131,15 @@ const Home: React.FC = () => {
           <Label shrink htmlFor="input-date">
             Meta
           </Label>
-          <BootstrapInput
+          <InputMask
+            mask="99/9999"
             value={newGoal}
             onChange={e => setNewGoal(e.target.value)}
             placeholder="mês/ano"
             id="input-date"
-          />
+          >
+            {() => <BootstrapInput placeholder="mês/ano" />}
+          </InputMask>
         </FormDiv>
 
         <Button type="submit">Adicionar</Button>
@@ -151,7 +149,7 @@ const Home: React.FC = () => {
         <Grid container>
           {locations.map((location, index) => (
             <GridData key={index} item lg={2} md={4} sm={6} xs={12}>
-              <Box boxShadow={4} borderRadius={10} m={2} p={1}>
+              <Box borderRadius={10} m={2} p={1}>
                 <CountryFormat>
                   <div>
                     <img src={location.flag} alt={location.countryBR} />
@@ -161,7 +159,10 @@ const Home: React.FC = () => {
                     <IconButton aria-label="change">
                       <MdEdit size={18} />
                     </IconButton>
-                    <IconButton aria-label="delete">
+                    <IconButton
+                      aria-label="delete"
+                      onClick={() => removeGoal(location.country)}
+                    >
                       <MdClose size={18} />
                     </IconButton>
                   </div>

@@ -7,7 +7,6 @@ import {
   InputBase,
   InputLabel,
   Theme,
-  Typography,
   withStyles,
 } from '@material-ui/core';
 import styled from 'styled-components';
@@ -100,12 +99,17 @@ export const BootstrapInput = withStyles((theme: Theme) =>
 
 export const GridData = styled(Grid)`
   img {
+    height: 34px;
     width: 54px;
   }
 
   button {
     border: 0;
     background: transparent;
+  }
+
+  & > div {
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
   }
 `;
 
