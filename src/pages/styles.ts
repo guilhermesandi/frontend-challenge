@@ -104,17 +104,16 @@ export const GridData = styled(Grid)`
   }
 
   button {
-    position: relative;
-    right: 16px;
-    top: 19px;
     border: 0;
     background: transparent;
-    color: inherit;
   }
 `;
 
 export const CountryFormat = styled(Box)`
   padding: 8px 5px;
+  display: flex;
+
+  border-bottom: 1px solid #ababab;
 
   p {
     font-weight: bold;
@@ -124,6 +123,15 @@ export const CountryFormat = styled(Box)`
     color: #4f9419;
 
     padding-top: 10px;
+  }
+
+  div:first-child {
+    flex: 1;
+  }
+
+  button {
+    top: -14px;
+    left: 11px;
   }
 `;
 

@@ -153,14 +153,18 @@ const Home: React.FC = () => {
             <GridData key={index} item lg={2} md={4} sm={6} xs={12}>
               <Box boxShadow={4} borderRadius={10} m={2} p={1}>
                 <CountryFormat borderBottom={1}>
-                  <img src={location.flag} alt={location.countryBR} />
-                  <p>{location.countryBR}</p>
-                  <button type="button">
-                    <MdEdit size={24} />
-                  </button>
-                  <button type="button">
-                    <MdClose size={24} />
-                  </button>
+                  <div>
+                    <img src={location.flag} alt={location.countryBR} />
+                    <p>{location.countryBR}</p>
+                  </div>
+                  <div>
+                    <IconButton aria-label="change">
+                      <MdEdit size={18} />
+                    </IconButton>
+                    <IconButton aria-label="delete">
+                      <MdClose size={18} />
+                    </IconButton>
+                  </div>
                 </CountryFormat>
                 <LocationFormat>
                   <p>
@@ -175,26 +179,6 @@ const Home: React.FC = () => {
               </Box>
             </GridData>
           ))}
-          <Card>
-            <CardHeader
-              avatar={<Avatar aria-label="recipe">R</Avatar>}
-              action={
-                // eslint-disable-next-line react/jsx-wrap-multilines
-                <IconButton aria-label="settings">
-                  <MdEdit size={24} />
-                </IconButton>
-              }
-              title="Shrimp and Chorizo Paella"
-              subheader="September 14, 2016"
-            />
-            <CardContent>
-              <Typography variant="body2" color="textSecondary" component="p">
-                This impressive paella is a perfect party dish and a fun meal to
-                cook together with your guests. Add 1 cup of frozen peas along
-                with the mussels, if you like.
-              </Typography>
-            </CardContent>
-          </Card>
         </Grid>
       </Box>
     </>
