@@ -83,10 +83,7 @@ const Home: React.FC = () => {
     });
   }, []);
 
-  const removeGoal = (id: string) => {
-    console.log('entrou');
-    localStorage.removeItem(id);
-  };
+  const removeGoal = (id: string) => {};
 
   return (
     <>
