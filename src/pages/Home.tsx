@@ -152,7 +152,7 @@ const Home: React.FC = () => {
           {locations.map((location, index) => (
             <GridData key={index} item lg={2} md={4} sm={6} xs={12}>
               <Box boxShadow={4} borderRadius={10} m={2} p={1}>
-                <CountryFormat borderBottom={1}>
+                <CountryFormat>
                   <div>
                     <img src={location.flag} alt={location.countryBR} />
                     <p>{location.countryBR}</p>
