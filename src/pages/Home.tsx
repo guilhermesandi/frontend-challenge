@@ -83,7 +83,7 @@ const Home: React.FC = () => {
     });
   }, []);
 
-  const removeGoal = (id: string) => {};
+  // const removeGoal = (id: string) => {};
 
   return (
     <>
@@ -158,7 +158,7 @@ const Home: React.FC = () => {
                     </IconButton>
                     <IconButton
                       aria-label="delete"
-                      onClick={() => removeGoal(location.country)}
+                      // onClick={() => removeGoal(location.country)}
                     >
                       <MdClose size={18} />
                     </IconButton>
