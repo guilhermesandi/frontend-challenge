@@ -10,5 +10,3 @@
 No diretório do projeto, execute:
 
 ### `yarn start`
-
-Esse repositório contém o código do front-end da aplicação GoFinances em React. Nela utilizaremos o back-end disponível neste [repositório](https://github.com/guilhermesandi/typeorm-upload).
