@@ -9,4 +9,8 @@
 ## Como rodar a aplicação
 No diretório do projeto, execute:
 
+### `yarn install`
+
+e depois
+
 ### `yarn start`
